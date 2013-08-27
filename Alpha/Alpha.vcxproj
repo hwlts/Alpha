@@ -135,7 +135,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>osg.lib;osgDB.lib;osgViewer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>osg.lib;osgDB.lib;osgViewer.lib;osgGA.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
