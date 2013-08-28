@@ -1,6 +1,6 @@
 #include <osg/Switch>
 #include <osgDB/ReadFile>
-#include <osgGA/GUIEventHandler>
+#include <osgGA/DriveManipulator>
 #include <osgViewer/Viewer>
 
 class KeyboardHandler : public osgGA::GUIEventHandler
@@ -52,12 +52,14 @@ public:
 int main(int argc, char** argv)
 {
 
-	osg::ref_ptr<osg::Switch> root = new osg::Switch;
-	root->addChild(osgDB::readNodeFile("cessna.osg"),true);
-	root->addChild(osgDB::readNodeFile("cessnafire.osg"),false);
+	//osg::ref_ptr<osg::Switch> root = new osg::Switch;
+	osg::ref_ptr<osg::Group> root = new osg::Group;
+	root->addChild(osgDB::readNodeFile("E:\\OSG_Resource\\FLT\\Sample\\Data\\Vega\\town.flt"));
+	//root->addChild(osgDB::readNodeFile("cessnafire.osg"),false);
 
 	osgViewer::Viewer viewer;
 	viewer.setSceneData(root);
-	viewer.addEventHandler(new KeyboardHandler);
+	//viewer.addEventHandler(new KeyboardHandler);
+	viewer.setCameraManipulator(new osgGA::DriveManipulator);
 	return viewer.run();
 }
