@@ -3,6 +3,7 @@
 #include <osgGA/DriveManipulator>
 #include <osgViewer/Viewer>
 
+/*des*/ 
 class KeyboardHandler : public osgGA::GUIEventHandler
 {
 public:
