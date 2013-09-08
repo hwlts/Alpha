@@ -4,7 +4,7 @@
 #include <osgViewer/Viewer>
 
 
-/*Test Msysgit*/
+/*Test Msysgit Push*/
 class KeyboardHandler : public osgGA::GUIEventHandler
 {
 public:
