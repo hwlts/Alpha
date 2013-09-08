@@ -3,7 +3,7 @@
 #include <osgGA/DriveManipulator>
 #include <osgViewer/Viewer>
 
-/*key board handler Desktop */ 
+/*key board handler Desktop B */ 
 class KeyboardHandler : public osgGA::GUIEventHandler
 {
 public:
