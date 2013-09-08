@@ -3,6 +3,8 @@
 #include <osgGA/DriveManipulator>
 #include <osgViewer/Viewer>
 
+
+/*Test Msysgit*/
 class KeyboardHandler : public osgGA::GUIEventHandler
 {
 public:
@@ -49,6 +51,7 @@ public:
 	}
 };
 
+/*c*/
 int main(int argc, char** argv)
 {
 
