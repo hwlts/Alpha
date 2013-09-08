@@ -3,6 +3,7 @@
 #include <osgGA/DriveManipulator>
 #include <osgViewer/Viewer>
 
+/*Thinkpad*/
 class KeyboardHandler : public osgGA::GUIEventHandler
 {
 public:
