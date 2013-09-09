@@ -1,67 +1,38 @@
-#include <osg/Switch>
-#include <osgDB/ReadFile>
-#include <osgGA/DriveManipulator>
 #include <osgViewer/Viewer>
 
-/*des*/ 
-class KeyboardHandler : public osgGA::GUIEventHandler
-{
-public:
-	virtual bool handle(const osgGA::GUIEventAdapter& ea,
-								osgGA::GUIActionAdapter& aa,
-								osg::Object*, osg::NodeVisitor*)
-	{
-		osgViewer::Viewer* viewer = dynamic_cast<osgViewer::Viewer*> (&aa);
-		
-		if (!viewer)
-			return false;
+#include <osg/Node>
+#include <osg/Geode>
+#include <osg/Group>
 
-		switch (ea.getEventType())
-		{
-		case osgGA::GUIEventAdapter::KEYDOWN:
-			if (ea.getKey() == osgGA::GUIEventAdapter::KEY_Space)
-			{
-				int width = ea.getWindowWidth();
-				int height = ea.getWindowHeight();
-				viewer->requestWarpPointer(width*0.5,height*0.5);
-			}
-			else
-			{
-				osg::Switch* root = dynamic_cast<osg::Switch*>(viewer->getSceneData());
-				if (!root)
-					return false;
-				
-				if (ea.getKey()=='1')
-				{
-					root->setValue(0,true);
-					root->setValue(1,false);
-				}
-				else if (ea.getKey()=='2')
-				{
-					root->setValue(0,false);
-					root->setValue(1,true);
-				}
-				return true;
-			}
-			break;
-		default:break;
-		}
-	return false;
-	}
-};
+#include<osgDB/ReadFile>
+#include<osgDB/WriteFile>
 
-/*c*/
+#include<osgUtil/Optimizer>
+
+#include "TravelManipulator.h"
 int main(int argc, char** argv)
 {
+	//创建Viewer对象，场景浏览器
+	osg::ref_ptr<osgViewer::Viewer> viewer = new osgViewer::Viewer();
 
-	//osg::ref_ptr<osg::Switch> root = new osg::Switch;
-	osg::ref_ptr<osg::Group> root = new osg::Group;
-	root->addChild(osgDB::readNodeFile("E:\\OSG_Resource\\FLT\\Sample\\Data\\Vega\\town.flt"));
-	//root->addChild(osgDB::readNodeFile("cessnafire.osg"),false);
+	//把漫游器加入到场景中
+	TravelManipulator::TravelToScene(viewer.get());
 
-	osgViewer::Viewer viewer;
-	viewer.setSceneData(root);
-	//viewer.addEventHandler(new KeyboardHandler);
-	viewer.setCameraManipulator(new osgGA::DriveManipulator);
-	return viewer.run();
+	osg::ref_ptr<osg::Group> root = new osg::Group();
+
+	//读取地形模型
+	osg::ref_ptr<osg::Node> node = osgDB::readNodeFile("lz.osg");
+
+	//添加到场景
+	root->addChild(node.get());
+
+	//优化场景数据
+	osgUtil::Optimizer optimizer;
+	optimizer.optimize(root.get());
+
+	viewer->setSceneData(root.get());
+	viewer->realize();
+	viewer->run();
+
+	return 0;
 }
