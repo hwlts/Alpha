@@ -10,13 +10,15 @@
 #include<osgUtil/Optimizer>
 
 #include "TravelManipulator.h"
+#include "SimpleTraveller.h"
+
 int main(int argc, char** argv)
 {
 	//创建Viewer对象，场景浏览器
 	osg::ref_ptr<osgViewer::Viewer> viewer = new osgViewer::Viewer();
 
 	//把漫游器加入到场景中
-	TravelManipulator::TravelToScene(viewer.get());
+	viewer->setCameraManipulator(new SimpleTraveller());
 
 	osg::ref_ptr<osg::Group> root = new osg::Group();
 
