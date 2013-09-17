@@ -198,7 +198,7 @@ int main()
 
 
 		// ÉèÖÃÊÓ¿Ú¾ØÕó£¨Ðý×ª¾ØÕóºÍÆ½ÒÆ¾ØÕóÁ¬³Ë£©¡£
-		//viewer->getCamera()->setViewMatrix( m_x_rot*m_y_rot*m_z_rot*trans );
+		viewer->getCamera()->setViewMatrix( m_x_rot*m_y_rot*m_z_rot*trans );
 		// »æÖÆÏÂÒ»Ö¡
 		viewer->frame();
 	}
