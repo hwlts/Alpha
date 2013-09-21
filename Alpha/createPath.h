@@ -5,6 +5,12 @@
 #include <osg/Math>
 #include <osg/Vec3>
 
-osg::ref_ptr<osg::AnimationPath> createAnimationPath(osg::Vec3 & center, float radius, float looptime);
+class CreatePath
+{
+	typedef osg::AnimationPath::ControlPoint ControlPoint;
+
+public:
+	static osg::AnimationPath* testPath();
+};
 
 #endif

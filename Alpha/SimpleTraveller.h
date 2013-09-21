@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SIMPLETRAVELLER_H
+	#define SIMPLETRAVELLER_H
+
 
 #include <osg/LineSegment>
 
@@ -49,3 +51,5 @@ private:
 
 	osg::Node *m_node;
 };
+
+#endif

@@ -43,8 +43,34 @@ int main()
 	root->addChild(node.get());
 	viewer->setSceneData(root.get());
 
-	//加入坦克的固定路径漫游
-	osg::ref_ptr<osg::AnimationPath>  animationPath = new osg::AnimationPath();
+	//加入su37的固定路径漫游
+	osg::AnimationPath*  su37_Path = CreatePath::testPath();
+	su37_Path->setLoopMode(osg::AnimationPath::LOOP);
+	osg::ref_ptr<osg::MatrixTransform> su37 = new osg::MatrixTransform();
+
+
+
+	osg::ref_ptr<osg::Node> su37_node = osgDB::readNodeFile("E:\\OSG_Resource\\FLT\\Gallery\\Models\\f35a.flt");
+	//su37->addChild(su37_node);
+	su37->setUpdateCallback(new osg::AnimationPathCallback(su37_Path));
+	root->addChild(su37);
+
+	osg::ref_ptr<osg::MatrixTransform> su370= new osg::MatrixTransform();
+	osg::ref_ptr<osg::MatrixTransform> su371 = new osg::MatrixTransform();
+	osg::ref_ptr<osg::MatrixTransform> su372 = new osg::MatrixTransform();
+
+	su370->setMatrix(osg::Matrix::translate(0,10,0));
+	su371->setMatrix(osg::Matrix::translate(5,0,0));
+	su372->setMatrix(osg::Matrix::translate(-5,0,0));
+
+	su370->addChild(su37_node);
+	su371->addChild(su37_node);
+	su372->addChild(su37_node);
+
+	su37->addChild(su370);
+	su37->addChild(su371);
+	su37->addChild(su372);
+
 
 	//自定义漫游器加入场景
 	SimpleTraveller * st = new SimpleTraveller();
@@ -55,29 +81,3 @@ int main()
 	return viewer->run();
 }
 
-//int main(int argc, char** argv)
-//{
-//	//创建Viewer对象，场景浏览器
-//	osg::ref_ptr<osgViewer::Viewer> viewer = new osgViewer::Viewer();
-//
-//	//把漫游器加入到场景中
-//	viewer->setCameraManipulator(new SimpleTraveller());
-//
-//	osg::ref_ptr<osg::Group> root = new osg::Group();
-//
-//	//读取地形模型
-//	osg::ref_ptr<osg::Node> node = osgDB::readNodeFile("lz.osg");
-//
-//	//添加到场景
-//	root->addChild(node.get());
-//
-//	//优化场景数据
-//	osgUtil::Optimizer optimizer;
-//	optimizer.optimize(root.get());
-//
-//	viewer->setSceneData(root.get());
-//	viewer->realize();
-//	viewer->run();
-//
-//	return 0;
-//}

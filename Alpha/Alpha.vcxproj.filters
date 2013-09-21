@@ -18,13 +18,13 @@
     <ClCompile Include="SimpleTraveller.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="createPath.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="PickHandler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CreatePath.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,10 +32,10 @@
     <ClInclude Include="SimpleTraveller.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="createPath.h">
+    <ClInclude Include="PickHandler.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="PickHandler.h">
+    <ClInclude Include="CreatePath.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
