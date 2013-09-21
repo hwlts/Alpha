@@ -18,10 +18,9 @@
 
 #include<osgUtil/Optimizer>
 
-#include "TravelManipulator.h"
+
 #include "SimpleTraveller.h"
-#include "createPath.h"
-#include "KeyBoardHandler.h"
+#include "CreatePath.h"
 #include "PickHandler.h"
 
 int main()

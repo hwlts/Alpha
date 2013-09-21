@@ -1,4 +1,4 @@
-#include "createPath.h"
+#include "CreatePath.h"
 
 osg::AnimationPath* CreatePath::testPath()
 {
