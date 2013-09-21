@@ -1,6 +1,13 @@
-#pragma once
+#ifndef SIMPLETRAVELLER_H
+	#define SIMPLETRAVELLER_H
+
+
+#include <osg/LineSegment>
 
 #include<osgGA/CameraManipulator>
+
+#include <osgUtil/IntersectVisitor>
+
 #include<osgViewer/Viewer>
 
 class SimpleTraveller : public osgGA::CameraManipulator
@@ -20,7 +27,11 @@ public:
 
 	bool changePosition(osg::Vec3 delta);
 
+	void setPosition(osg::Vec3 &position);
+
 	void setStep(int delta_step);
+
+	void setMnode(osg::Node *Node);
 
 private:
 	
@@ -28,9 +39,9 @@ private:
 
 	osg::Vec3 m_vRotation;
 
-	int m_iStep;
+	int m_vStep;
 
-	float m_fRotateStep;
+	float m_vRotateStep;
 
 	int m_iLeftX;
 	
@@ -38,4 +49,7 @@ private:
 
 	bool m_bLeftDown;
 
+	osg::Node *m_node;
 };
+
+#endif

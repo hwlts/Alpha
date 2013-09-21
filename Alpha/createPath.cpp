@@ -1,42 +1,27 @@
-#include "createPath.h"
+#include "CreatePath.h"
 
-osg::ref_ptr<osg::AnimationPath> createAnimationPath(osg::Vec3 & center, float radius, float looptime)
+osg::AnimationPath* CreatePath::testPath()
 {
-	//创建一个Path对象
-	osg::ref_ptr<osg::AnimationPath>  animationPath = new osg::AnimationPath();
+	
+	osg::ref_ptr<osg::AnimationPath> path = new osg::AnimationPath();
 
-	//设置动画模式为Loop
-	animationPath->setLoopMode(osg::AnimationPath::LOOP);
-
-	//关键点数
-	int numPoint = 60;
-
-	//每次偏移角度
-	float yaw = 0.0f;
-	float yaw_delta = 2.0f * osg::PI / (float) (numPoint - 1.0f);
-
-	//倾斜角度
-	float roll = osg::inDegrees(45.0f);
-
-	//时间偏移
-	float time = 0.0f;
-	float time_delta = looptime / ((float)numPoint);
-
-	for (int i = 0; i < numPoint; i++)
-	{
-		//关键点位置
-		osg::Vec3 position(center+osg::Vec3(sinf(yaw)*radius,cosf(yaw)*radius,0.0f));
-
-		//关键点角度
-		osg::Quat rotation(osg::Quat(roll,osg::Vec3(0.0,1.0,0.0))*osg::Quat(-(yaw+osg::inDegrees(90.0f)),osg::Vec3(0.0,0.0,1.0)));
-
-		//插入Path，把关键点和时间点压入形成Path
-		animationPath->insert(time,osg::AnimationPath::ControlPoint(position,rotation));
-
-		yaw += yaw_delta;
-		time += time_delta;
-	}
-
-	//返回Path
-	return animationPath.get();	
+	osg::Vec3 v0(2000,2000,200);
+	osg::Vec3 v01(2001,2000,200);
+	osg::Vec3 v1(2100,2000,200);
+	osg::Vec3 v11(2100,2001,200);
+	osg::Vec3 v2(2100,2100,200);
+	osg::Vec3 v21(2099,2100,200);
+	osg::Vec3 v3(2000,2100,200);
+	osg::Vec3 v31(2000,2099,200);
+	osg::Vec3 z_aix(0,0,1);
+	path->insert(0.0,ControlPoint(v0,osg::Quat(osg::PI,z_aix)));
+	path->insert(0.1,ControlPoint(v01,osg::Quat(osg::PI_2+osg::PI,z_aix)));
+	path->insert(5.0,ControlPoint(v1,osg::Quat(osg::PI_2+osg::PI,z_aix)));
+	path->insert(5.1,ControlPoint(v11,osg::Quat(0,z_aix)));
+	path->insert(10.0,ControlPoint(v2,osg::Quat(0,z_aix)));
+	path->insert(10.1,ControlPoint(v21,osg::Quat(osg::PI_2,z_aix)));
+	path->insert(15.0,ControlPoint(v3,osg::Quat(osg::PI_2,z_aix)));
+	path->insert(15.1,ControlPoint(v31,osg::Quat(osg::PI,z_aix)));
+	path->insert(20.0,ControlPoint(v0,osg::Quat(osg::PI,z_aix)));
+	return path.release();
 }

@@ -15,39 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="TravelManipulator.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="SimpleTraveller.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="createPath.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyBoardHandler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="PickHandler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CreatePath.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TravelManipulator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="SimpleTraveller.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="createPath.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyBoardHandler.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="PickHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CreatePath.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
