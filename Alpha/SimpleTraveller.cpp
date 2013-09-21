@@ -3,9 +3,10 @@
 SimpleTraveller::SimpleTraveller() :
 	m_vPosition(osg::Vec3(0.0f,0.0f,5.0f)),
 	m_vRotation(osg::Vec3(osg::PI_2,0.0f,0.0f)),
-	m_iStep(1.0f),
-	m_fRotateStep(0.01),
-	m_bLeftDown(false) {}
+	m_vStep(1.0f),
+	m_vRotateStep(0.01),
+	m_bLeftDown(false),
+	m_node(0) {}
 
 SimpleTraveller::~SimpleTraveller()
 {}
@@ -44,19 +45,19 @@ bool SimpleTraveller::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionA
 		{
 			if (ea.getKey() == 'w' || ea.getKey() == 'W')
 			{
-				changePosition(osg::Vec3d(m_iStep*cosf(osg::PI_2+m_vRotation._v[2]),m_iStep*sinf(osg::PI_2+m_vRotation._v[2]),0.0f));
+				changePosition(osg::Vec3d(m_vStep*cosf(osg::PI_2+m_vRotation._v[2]),m_vStep*sinf(osg::PI_2+m_vRotation._v[2]),0.0f));
 			}
 			else if (ea.getKey() == 's' || ea.getKey() == 'S')
 			{
-				changePosition(osg::Vec3d(-m_iStep*cosf(osg::PI_2+m_vRotation._v[2]),-m_iStep*sinf(osg::PI_2+m_vRotation._v[2]),0.0f));
+				changePosition(osg::Vec3d(-m_vStep*cosf(osg::PI_2+m_vRotation._v[2]),-m_vStep*sinf(osg::PI_2+m_vRotation._v[2]),0.0f));
 			}
 			else if (ea.getKey() == 'a' || ea.getKey() == 'A')
 			{
-				changePosition(osg::Vec3(-m_iStep*sinf(osg::PI_2+m_vRotation._v[2]),m_iStep*cosf(osg::PI_2+m_vRotation._v[2]),0));
+				changePosition(osg::Vec3(-m_vStep*sinf(osg::PI_2+m_vRotation._v[2]),m_vStep*cosf(osg::PI_2+m_vRotation._v[2]),0));
 			}
 			else if (ea.getKey() == 'd' || ea.getKey() == 'D')
 			{
-				changePosition(osg::Vec3(m_iStep*sinf(osg::PI_2+m_vRotation._v[2]),-m_iStep*cosf(osg::PI_2+m_vRotation._v[2]),0));
+				changePosition(osg::Vec3(m_vStep*sinf(osg::PI_2+m_vRotation._v[2]),-m_vStep*cosf(osg::PI_2+m_vRotation._v[2]),0));
 			}
 			else if (ea.getKey() == '+')
 			{
@@ -73,6 +74,14 @@ bool SimpleTraveller::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionA
 			else if (ea.getKey() == osgGA::GUIEventAdapter::KEY_End)
 			{
 				changePosition(osg::Vec3(0.0f,0.0f,-1.0f));
+			}
+			else if (ea.getKey() == osgGA::GUIEventAdapter::KEY_Page_Up)
+			{
+				changePosition(osg::Vec3(0.0f,0.0f,100.0f));
+			}
+			else if (ea.getKey() == osgGA::GUIEventAdapter::KEY_Page_Down)
+			{
+				changePosition(osg::Vec3(0.0f,0.0f,-100.0f));
 			}
 		}
 		break;
@@ -94,8 +103,8 @@ bool SimpleTraveller::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionA
 				int delX = ea.getX() - m_iLeftX;
 				int delY = ea.getY() - m_iLeftY;
 				
-				m_vRotation[2] -= osg::DegreesToRadians(m_fRotateStep*delX);
-				m_vRotation[0] += osg::DegreesToRadians(m_fRotateStep*delY);
+				m_vRotation[2] -= osg::DegreesToRadians(m_vRotateStep*delX);
+				m_vRotation[0] += osg::DegreesToRadians(m_vRotateStep*delY);
 
 				if (m_vRotation[0] <= 0)
 				{
@@ -124,14 +133,45 @@ bool SimpleTraveller::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionA
 
 bool SimpleTraveller::changePosition(osg::Vec3 delta)
 {
-	m_vPosition += delta;
+	if (m_node)
+	{
+		osg::Vec3 newPos = m_vPosition + delta;
+		osgUtil::IntersectVisitor iv;
+
+		osg::ref_ptr<osg::LineSegment> line = new osg::LineSegment(newPos,m_vPosition);
+
+		iv.addLineSegment(line.get());
+		m_node->accept(iv);
+		if (!iv.hits())
+		{
+			m_vPosition += delta;
+		}
+		else
+		{
+
+			return false;
+		}
+	}
+	else
+	{
+			m_vPosition += delta;
+	}
 	return true;
 }
 
 void SimpleTraveller::setStep(int delta_step)
 {
-	m_iStep += delta_step;
-	if (m_iStep <= 0)
-		m_iStep = 0;
+	m_vStep += delta_step;
+	if (m_vStep <= 0)
+		m_vStep = 0;
 }
 
+void SimpleTraveller::setMnode(osg::Node *temp)
+{
+	m_node = temp;
+}
+
+void SimpleTraveller::setPosition(osg::Vec3 &position)
+{
+	m_vPosition = position;
+}

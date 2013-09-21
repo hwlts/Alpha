@@ -145,18 +145,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="createPath.cpp" />
-    <ClCompile Include="KeyBoardHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PickHandler.cpp" />
     <ClCompile Include="SimpleTraveller.cpp" />
-    <ClCompile Include="TravelManipulator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="createPath.h" />
-    <ClInclude Include="KeyBoardHandler.h" />
     <ClInclude Include="PickHandler.h" />
     <ClInclude Include="SimpleTraveller.h" />
-    <ClInclude Include="TravelManipulator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

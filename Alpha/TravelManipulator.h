@@ -1,90 +1,86 @@
 #pragma once
 
-#include<osgViewer/Viewer>
+#include <osgViewer/Viewer>
 
-#include<osg/LineSegment>
-#include<osg/Point>
-#include<osg/Geometry>
-#include<osg/Node>
-#include<osg/Geode>
-#include<osg/Group>
+#include <osg/LineSegment>
+#include <osg/Point>
+#include <osg/Geometry>
+#include <osg/Node>
+#include <osg/Geode>
+#include <osg/Group>
 
-#include<osgGA/CameraManipulator>
-#include <osgGA/GUIEventAdapter>
-#include <osgGA/GUIActionAdapter>
+#include <osgGA/CameraManipulator>
 
-#include<osgUtil/IntersectVisitor>
+#include <osgUtil/IntersectVisitor>
 
-#include<vector>
+#include <vector>
 
-class TravelManipulator : public osgGA::CameraManipulator
+class TravelManipulator:public osgGA::CameraManipulator
 {
+
 public:
 
-	//构造函数
-	TravelManipulator();
+	TravelManipulator(void);
+	~TravelManipulator(void);
 
-	//析构函数
-	~TravelManipulator();
-
-	//把漫游加入到场景之中
-	static TravelManipulator* TravelToScene(osg::ref_ptr<osgViewer::Viewer> viewer);
+	// 把漫游器添加到场景中
+	static TravelManipulator * TravelToScence(osg::ref_ptr<osgViewer::Viewer>viewer);
 
 private:
 
-	osg::ref_ptr<osgViewer::Viewer> m_pHostViewer;
-	
-	//移动速度
+	osg::ref_ptr<osgViewer::Viewer>m_pHostViewer;
+
+	// 移动速度
 	float m_fMoveSpeed;
 
+	// 当前位置
 	osg::Vec3 m_vPosition;
 
+	// 旋转角度
 	osg::Vec3 m_vRotation;
 
 public:
 
-	//鼠标左键是否按下
+	// 鼠标左键状态
 	bool m_bLeftButtonDown;
 
-	//鼠标X、Y
+	// 鼠标位置
+	float m_fpushX;
 	float m_fpushY;
 
-	float m_fpushX;
+	// 设置矩阵
+	virtual void setByMatrix(const osg::Matrix &matrix);
 
-	//设置矩阵
-	virtual void setByMatrix(const osg::Matrixd& matrix);
+	// 设置逆矩阵
+	virtual void setByInverseMatrix(const osg::Matrix &matrix);
 
-	//设置逆矩阵
-	virtual void setByInverseMatrix(const osg::Matrixd& matrix);
-
-	//得到矩阵
+	// 获取矩阵
 	virtual osg::Matrixd getMatrix() const;
 
-	//得到逆矩阵
+	// 获取逆矩阵
 	virtual osg::Matrixd getInverseMatrix() const;
 
-	//事件处理函数
-	virtual bool handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& us);
+	// 事件处理函数
+	virtual bool handle(const osgGA::GUIEventAdapter &ea, osgGA::GUIActionAdapter &us);
 
-	//屏幕角度
+	// 屏幕角度
 	float m_fAngle;
 
-	//位置变换函数
-	void ChangePosition(osg::Vec3& delta);
+	// 位置变换
+	void ChangePosition(osg::Vec3 &delta);
 
-	//碰撞检测是否开启
+	// 碰撞检测状态
 	bool m_bPeng;
 
-	//设置速度
-	void setSpeed(float&);
-
-	//得到当前速度
+	// 设置速度
 	float getSpeed();
 
-	//设置起始位置
-	void setPosition(osg::Vec3& position);
+	void setSpeed(float &);
 
-	//得到当前位置
-	osg::Vec3  getPosition();
+	// 设置初始位置
+	void SetPosition(osg::Vec3 &position);
+
+	osg::Vec3 GetPosition();
+
+
 };
-
