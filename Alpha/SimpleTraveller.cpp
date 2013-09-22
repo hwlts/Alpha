@@ -83,6 +83,12 @@ bool SimpleTraveller::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionA
 			{
 				changePosition(osg::Vec3(0.0f,0.0f,-100.0f));
 			}
+			else if (ea.getKey() == osgGA::GUIEventAdapter::KEY_Space)
+			{
+				setPosition(osg::Vec3(2580,2330,2));
+				m_vRotation = osg::Vec3(osg::PI_2,0.0f,0.0f);
+			}
+			
 		}
 		break;
 	case osgGA::GUIEventAdapter::PUSH:
