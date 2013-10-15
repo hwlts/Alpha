@@ -23,6 +23,10 @@
 #include "CreatePath.h"
 #include "PickHandler.h"
 
+/************************************************************************/
+/* town.flt Version
+/************************************************************************/
+
 int main()
 {
 	osg::ref_ptr<osgViewer::Viewer> viewer = new osgViewer::Viewer();
