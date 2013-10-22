@@ -5,6 +5,7 @@
 #include <osg/Geode>
 #include <osg/Group>
 #include <osg/Math>
+#include <osg/Image>
 #include <osg/AnimationPath>
 #include <osg/MatrixTransform>
 #include <osg/PositionAttitudeTransform>
@@ -23,6 +24,10 @@
 #include "CreatePath.h"
 #include "PickHandler.h"
 
+/************************************************************************/
+/* town.flt Version
+/************************************************************************/
+
 int main()
 {
 	osg::ref_ptr<osgViewer::Viewer> viewer = new osgViewer::Viewer();
@@ -38,7 +43,8 @@ int main()
 	viewer->addEventHandler(new CPickHandler(updatetext.get()));
 
 	//模型加入场景
-	osg::ref_ptr<osg::Node> node = osgDB::readNodeFile("E:\\OSG_Resource\\FLT\\Sample\\Data\\Vega\\town.flt");
+	osgDB::Registry::instance()->setOptions(new osgDB::Options("dds_flip"));
+	osg::ref_ptr<osg::Node> node = osgDB::readNodeFile("C:\\Users\\Administrator\\Desktop\\boston_flt_dds\\master.flt");
 	root->addChild(node.get());
 	viewer->setSceneData(root.get());
 
@@ -74,7 +80,7 @@ int main()
 	//自定义漫游器加入场景
 	SimpleTraveller * st = new SimpleTraveller();
 	st->setMnode(root);
-	st->setPosition(osg::Vec3(2580,2330,2));
+	//st->setPosition(osg::Vec3(2580,2330,2));
 	viewer->setCameraManipulator(st);
 
 	return viewer->run();
